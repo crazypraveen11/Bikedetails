@@ -31,5 +31,11 @@ public class bikecontroller
     // {
     //     return bikeserv.findbymodel(bikedetails);
     // }
-    
+
+
+    public String updatebikes(@RequestBody bikeentity bikedata)
+    {
+        bikeentity bike = bikeserv.add_bike(bikedata);
+        return bike.getBike_brand()+" your brand has been updated successfully...!";
+    }
 }
