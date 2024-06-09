@@ -16,34 +16,29 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class Authentication 
-{
+public class Authentication {
     @Autowired
     bikeservice service;
 
     @Bean
-    public PasswordEncoder encoder()
-    {
+    public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public WebSecurityCustomizer customurl()
-    {
+    public WebSecurityCustomizer customurl() {
         return web -> web.ignoring().requestMatchers("/indianbank/addbikes");
     }
 
     @Bean
-    public InMemoryUserDetailsManager myuserdetails()
-    {
+    public InMemoryUserDetailsManager myuserdetails() {
         UserDetails user1 = User.withUsername("Praveen").password(encoder().encode("Praveen11")).build();
         UserDetails user2 = User.withUsername("Ajith").password(encoder().encode("Ajith11")).build();
-        return new InMemoryUserDetailsManager(user1,user2);
+        return new InMemoryUserDetailsManager(user1, user2);
     }
-
+    
     @Bean
-    public SecurityFilterChain httpfilter(HttpSecurity hp) throws Exception
-    {
+    public SecurityFilterChain httpfilter(HttpSecurity hp) throws Exception {
         // hp.authorizeHttpRequests().anyRequest().authenticated(); // Forall requests
         // hp.authorizeHttpRequests().anyRequest().permitAll(); // permitall requests
 
@@ -53,7 +48,8 @@ public class Authentication
         // hp.httpBasic();
         // hp.formLogin();
 
-        hp.authorizeRequests().requestMatchers("/indianbank/**").authenticated().and().csrf().disable().cors().and().httpBasic();
+        hp.authorizeRequests().requestMatchers("/indianbank/**").authenticated().and().csrf().disable().cors().and()
+                .httpBasic();
         hp.formLogin();
 
         AuthenticationManagerBuilder builder = hp.getSharedObject(AuthenticationManagerBuilder.class);
