@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@RequestMapping("indianbank")
+@RequestMapping("/indianbank")
 @CrossOrigin(origins = "http://localhost:3000")
 public class bikecontroller {
     @Autowired
