@@ -29,6 +29,13 @@ public class bikeservice implements UserDetailsService
         return bikerepo.findById(Bikebrand).orElse(new bikeentity());
     }
 
+    public String deletebybikebrand(String brand)
+    {
+        bikeentity bike = bikerepo.findById(brand).orElse(new bikeentity());
+        bikerepo.deleteById(brand);
+        return bike.getBikeBrand()+ " has been deleted successfully..!";
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         bikeentity bike = bikerepo.findByBikeBrand(username);

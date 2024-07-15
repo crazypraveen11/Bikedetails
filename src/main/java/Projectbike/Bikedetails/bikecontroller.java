@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +59,13 @@ public class bikecontroller {
         return bikeserv.findbybike(bike);
     }
 
+    @DeleteMapping("/deletebybrand/{brand}")
+    public String deletebybrand(@PathVariable("brand") String brand) {
+        deleteallcustomers(brand);
+        // deleteall(brand);
+        return bikeserv.deletebybikebrand(brand);
+    }
+
     @Autowired
     customerservice cservice;
 
@@ -80,5 +88,10 @@ public class bikecontroller {
     public String updatecustomer(@RequestBody customerentity cust) {
         customerentity customer = cservice.addcustomer(cust);
         return customer.getCustomerName() + " customer has been updated successfully...!";
+    }
+
+    @DeleteMapping("/deleteallcustomer/{id}")
+    public void deleteallcustomers(@PathVariable("id") String id) {
+        cservice.crepo.deleteAll();
     }
 }

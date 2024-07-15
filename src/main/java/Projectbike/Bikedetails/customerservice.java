@@ -27,4 +27,8 @@ public class customerservice
         return crepo.findById(transno).orElse(new customerentity());
     }
     
+    public void deletecustomer(Long id)
+    {
+        crepo.deleteById(id);
+    }
 }
